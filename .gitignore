@@ -1,0 +1,9 @@
+.settings
+/.idea/
+/cmake-build-debug/
+/Debug/
+/whatDoesACompilerDo.s
+/whatDoesACompilerDo.o
+*.gch
+*~
+#*#
