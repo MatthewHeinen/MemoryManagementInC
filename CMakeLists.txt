@@ -5,6 +5,6 @@ set(CMAKE_CXX_STANDARD 20)
 
 add_executable(A_CS250_Starter
 	main
-        main.cpp)
+        main.cpp stringExamples.h stringExamples.cpp)
 
 include_directories(/home/courses/include ../HaverfordCS/include)
