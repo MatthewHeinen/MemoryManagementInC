@@ -6,6 +6,7 @@
 *.gch
 *~
 #*#
+.#*
 .DS_Store
 .Trash
 .vscode
