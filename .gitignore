@@ -1,9 +1,12 @@
 .settings
 /.idea/
+/.deps/
 /cmake-build-debug/
 /Debug/
-/whatDoesACompilerDo.s
-/whatDoesACompilerDo.o
 *.gch
 *~
 #*#
+.DS_Store
+.Trash
+.vscode
+build
