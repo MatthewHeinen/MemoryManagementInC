@@ -7,4 +7,6 @@
 
 int main() {
     std::cout << "Hello, world" << std::endl;
+    strcmpExamples();
+    std::cout << "all done" << std::endl;
 }
