@@ -3,10 +3,9 @@
 //
 
 #include <iostream>  // access to I.O. Streams library, for std::cout and std::endl
-#include "stringExamples.h" // access other elements of this project with quotation marks, not < >
 
 int main() {
     std::cout << "Hello, world" << std::endl;
-    strcmpExamples();
+    // need to add calls to test suite and/or user interface to work with the code here
     std::cout << "all done" << std::endl;
 }
