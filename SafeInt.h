@@ -15,20 +15,23 @@
 class SafeInt {
 public:         // Unlike Java, we don't have to say "public" and "private" on each member
 
-    explicit SafeInt(const int &i);     // allows implicit typecasting f int to SafeInt, use "explicit" to prevent that
-    // by default, SafeInt's can be created uninitialized
+    SafeInt(int i);             // initializes; also allows typecasting f int to SafeInt, see SafeInt demo
+    SafeInt();                  // this lets us create SafeInt without initialization
     // by default, SafeInt's can be initialized with other SafeInt's
     // by default, SafeInt's can be assigned new SafeInt values
+    // Note that we can disable implicit casting by putting the word "explicit" in front of that first constructor
     // see example String class from lecture, for examples of controlling those things
 
     // Note we can define methods/functions with names that are operator symbols.
     // Mutators like "+=" are done with _methods_; others are done as "friend functions":
     friend SafeInt operator+(const SafeInt &lhs, const SafeInt &rhs);   // called as lhs + rhs
     SafeInt &operator+=(const SafeInt &rhs);                            // called as lhs += rhs; "this" becomes &lhs
+    // add(lhs, rhs) is like the first ... note two parameters
+    // lhs.add(rhs)  is like the second, with one parameter, one object receiving the message
 
-    friend SafeInt div(const SafeInt &lhs, const SafeInt &rhs);         // called as lhs / rhs
+    friend SafeInt div(const SafeInt &lhs, const SafeInt &rhs);         // called as div(lhs, rhs)
     SafeInt &divSet(const SafeInt &rhs);                                // called as lhs.divSet(rhs), like lhs/=rhs
-    friend double operator/(const SafeInt &lhs, const SafeInt &rhs);     // called as div(lhs, rhs)
+    friend double operator/(const SafeInt &lhs, const SafeInt &rhs);    // called as lhs / rhs
 
     // the type-cast operator below is called via int(value) or (int) value
     //   where "value" is a SafeInt and "this" becomes &value

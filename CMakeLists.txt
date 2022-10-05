@@ -6,6 +6,7 @@ set(CMAKE_CXX_STANDARD 20)
 add_executable(BigInt
 		main.cpp
 		SafeInt.cpp
+		String.cpp
         )
 
 include_directories(/home/courses/include ../HaverfordCS/include)

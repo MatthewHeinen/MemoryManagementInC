@@ -11,14 +11,18 @@
 //   and then choosing either the class name (for members) or "top-level functions" (for friends, etc.)
 //   and then selecting all the ones we want
 
-SafeInt::SafeInt(const int &i) {
+SafeInt::SafeInt(int i) {
     this->theValue = i;    // We _strongly_ recommend you put "this->" for all initializations in constructor
-    // same as   (*this).theValue = i
-    // but _not_  *this .theValue = i
-    // and _not_   this .theValue = i
+    // same as   (*this).theValue = i;
+    // but _not_  *this .theValue = i;
+    // and _not_   this .theValue = i;
     // ToDo: Understand why the above two are wrong
 }
 
+SafeInt::SafeInt()
+{
+    // this->theValue = -666;
+}
 
 
 // This isn't a method, so no "this" pointer is available.
@@ -103,12 +107,18 @@ using std::cin, std::cout, std::endl, std::cerr;
 void SafeInt_Demo()
 {
     cout << "Enter a positive integer, and I'll triple it until it makes me sad to do so..." << endl;
-    SafeInt n = SafeInt(0);
+    SafeInt n;
     while (cin >> n) {  // Stops when cin fails, due to end-of-input or non-integer entered
         cout << "I read in the value " << n << ", time to start tripling!!!" << endl;
         try {
             while (true) { // run until error
+                int one = 1;  // a regular int, to demonstrate casting below
                 n = n+n+n;
+                n = n + one;   // 1 gets implicitly cast to SafeInt to provide a const SafeInt& parameter to operator+
+                n = one + n;   // works for left or right-hand side
+                n += one;      // works for right-hand side of operator+=
+            //  one += n;      // does not work for left-hand side of operator+=, because that's a non-const member
+                n += -3;       // go back down so we're just tripling
                 cout << "Managed to triple it and get " << n << endl;
             }
 //        } catch (domain_error) {   // AS noted above, Dave gave up on doing this the "right way"
@@ -116,7 +126,7 @@ void SafeInt_Demo()
         } catch (const char *complaint) {
             cout << "Aha! I thought so ... eventually we got domain_error, I think..." << complaint << endl;
         } catch (...) {
-            cerr << "Wait, what?  Got some exception other than domain_error" << endl;
+            cerr << "Wait, what?  Got some exception other than domain_error, when trying to triple " << n << endl;
         }
     }
 }
