@@ -11,6 +11,11 @@
 #define BIGINT_SAFEINT_H
 
 #include <iostream>
+#include <climits>  // for, e.g., MAX_INT
+
+typedef int SafeIntBaseType;   // make safe_int_base_type a synonym for "int"; we could change to "long long" :-)
+#define SAFE_INT_MAX INT_MAX
+#define SAFE_INT_MIN INT_MIN
 
 class SafeInt {
 public:         // Unlike Java, we don't have to say "public" and "private" on each member
@@ -39,7 +44,7 @@ public:         // Unlike Java, we don't have to say "public" and "private" on e
     explicit operator int() const;
 
 private:        // Stuff below this line is private, i.e., only for methods ("member functions") and friend functions
-    int theValue;
+    SafeIntBaseType theValue;
 };
 
 // These are useful but don't need to access the private fields, so don't have to be in the class
