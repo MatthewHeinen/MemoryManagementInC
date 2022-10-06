@@ -115,7 +115,7 @@ void SafeInt_Demo()
                 int one = 1;  // a regular int, to demonstrate casting below
                 n = n+n+n;
                 n = n + one;   // 1 gets implicitly cast to SafeInt to provide a const SafeInt& parameter to operator+
-                n = one + n;   // works for left or right-hand side
+                n = one + n;   // works for left or right-hand side ... we could use 1 rather than one, throughout
                 n += one;      // works for right-hand side of operator+=
             //  one += n;      // does not work for left-hand side of operator+=, because that's a non-const member
                 n += -3;       // go back down so we're just tripling

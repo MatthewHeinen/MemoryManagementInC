@@ -7,6 +7,7 @@ add_executable(BigInt
 		main.cpp
 		SafeInt.cpp
 		String.cpp
-        )
+        safe_int_just_c.c
+		)
 
 include_directories(/home/courses/include ../HaverfordCS/include)
