@@ -21,36 +21,31 @@ typedef int safe_int_base_type;  // make safe_int_base_type a synonym for "int";
 #define SAFE_INT_MAX INT_MAX
 #define SAFE_INT_MIN INT_MIN
 
-struct safe_int {
+typedef struct {
     safe_int_base_type theValue;
-};
+} safe_int;
 
-struct safe_int make_safe_int(int i); // sort of like SafeInt(int i), but no type casting
+safe_int make_safe_int(int i); // sort of like SafeInt(int i), but no type casting
 // no need for SafeInt(), any C object can be created without initialization  =:-O
 
 // Also, no control over casting or operators, including = because that's just not part of C
 // So, instead, we just make a bucket of functions:
 
-int make_int_from_safe_int(struct safe_int i);  // used to convert, since there's no cast operation
+int make_int_from_safe_int(safe_int i);  // used to convert, since there's no cast operation
 
 // substitutes for arithmetic operations:
-struct safe_int add_safe_int(struct safe_int i, struct safe_int j);
-
-struct safe_int *add_to_safe_int(struct safe_int *add_to_this_one, struct safe_int j);
-
-struct safe_int div_safe_int(struct safe_int i, struct safe_int j);
-
-struct safe_int *div_to_safe_int(struct safe_int *div_to_this_one, struct safe_int j);
-
-double real_divide_safe_int(struct safe_int i, struct safe_int j);
+safe_int add_safe_int(safe_int i, safe_int j);
+safe_int *add_to_safe_int(safe_int *add_to_this_one, safe_int j);
+safe_int div_safe_int(safe_int i, safe_int j);
+safe_int *div_to_safe_int(safe_int *div_to_this_one, safe_int j);
+double real_divide_safe_int(safe_int i, safe_int j);
 
 #include <stdio.h>
 
-int print_safe_int_to(FILE *destination, struct safe_int i);
-
-int print_safe_int(struct safe_int i);  // to standard output, analogous to cout
+int print_safe_int_to(FILE *destination, safe_int i);
+int print_safe_int(safe_int i);  // to standard output, analogous to cout
 // C uses 0 for false, 1 for true. We could "typedef int bool" and #define true and false, of course, but...
-int read_safe_int(struct safe_int *read_my_value);  // return true if it succeeded
+int read_safe_int(safe_int *read_my_value);  // return true if it succeeded
 
 void safe_int_demo();
 
