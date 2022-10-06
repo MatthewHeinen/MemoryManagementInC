@@ -5,10 +5,13 @@
 #include <iostream>  // access to I.O. Streams library, for std::cout and std::endl
 #include "SafeInt.h"
 #include "safe_int_just_c.h"
+#include "twice_greaters.h"
 #include "String.h"
 
 int main() {
     std::cout << "Hello, world" << std::endl;
+    twice_greater_demo_v1();
+
     // need to add calls to test suite and/or user interface to work with the code here
     String_Demo();
     // Both of the following run until end-of-input, so just use one or the other
