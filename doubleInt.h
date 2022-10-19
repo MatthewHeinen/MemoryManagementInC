@@ -5,6 +5,6 @@
 #ifndef BIGINT_DOUBLEINT_H
 #define BIGINT_DOUBLEINT_H
 
-void decimalToBinary(int num);
+void decimalToBinary(unsigned num);
 
 #endif //BIGINT_DOUBLEINT_H
