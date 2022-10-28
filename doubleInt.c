@@ -2,7 +2,6 @@
 // Created by mheinen on 10/5/22.
 //
 
-
 #include "doubleInt.h"
 #include "safe_int_just_c.h"
 #include <math.h>
@@ -64,13 +63,16 @@ double_int add_double_int(double_int i, double_int j)
 }
 
 double_int double_int_add_to(double_int * i, double_int j) {
-    if (i->leastSignificant > INT_MAX - j.leastSignificant || j.leastSignificant > INT_MAX - i->leastSignificant) {
-        fprintf(stderr, "Oops, failed to add. Overflow!");
-        exit(88);
-    } else if ((i->mostSignificant  > 0 && j.mostSignificant > 0 ) && (i->leastSignificant > 0 || j.leastSignificant > 0)) {
+    if ((i->mostSignificant  > 0 && j.mostSignificant > 0 )) {
         fprintf(stderr, "Oops, failed to add. Overflow!");
         exit(88);
     } else if ((i->mostSignificant > 0 || j.mostSignificant > 0) && (i->leastSignificant > INT_MAX - j.leastSignificant)) {
+        fprintf(stderr, "Oops, failed to add. Overflow!");
+        exit(88);
+    } else if (((i->mostSignificant == 0) && (j.mostSignificant == 1)) && (((i->leastSignificant > INT_MAX - j.leastSignificant)) || ((j.leastSignificant > INT_MAX - i->leastSignificant)))) {
+        fprintf(stderr, "Oops, failed to add. Overflow!");
+        exit(88);
+    } else if (((i->mostSignificant == 1) && (j.mostSignificant == 0)) && (((i->leastSignificant > INT_MAX - j.leastSignificant)) || ((j.leastSignificant > INT_MAX - i->leastSignificant)))) {
         fprintf(stderr, "Oops, failed to add. Overflow!");
         exit(88);
     } else {
@@ -79,6 +81,18 @@ double_int double_int_add_to(double_int * i, double_int j) {
     }
 }
 
+unsigned int fib(unsigned int num)
+{
+
+
+}
+
+double_int double_fib(unsigned int num)
+{
+
+}
+
+//TODO: Remember to do the add zero function
 void double_int_demo() {
 
 }
