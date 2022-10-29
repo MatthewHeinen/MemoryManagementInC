@@ -3,7 +3,6 @@
 //
 
 #include "doubleInt.h"
-#include "assert.h"
 #include "safe_int_just_c.h"
 #include <math.h>
 #include <malloc.h>
@@ -27,6 +26,19 @@ int make_int_from_double_int(double_int i)
         return i.mostSignificant * INT_MAX + i.leastSignificant; //TODO: overflow warning. Ask question
     }
 }
+/**
+ * max = 99
+ * i = 51
+ * j = 80
+ * total = 131
+ * ms = 1
+ * ls = 31
+ *
+ * i.most = 1*INT_MAX
+ * i.least = 1*INT_MAX
+ * new range = i.most + i.least
+ * 999
+ * */
 
 double_int add_double_int(double_int i, double_int j)
 {
@@ -82,28 +94,44 @@ double_int double_int_add_to(double_int * i, double_int j) {
     }
 }
 
-unsigned int fib(unsigned int num)
+int fib(int n)
 {
+    int f[n+2];
+    int i;
 
+    f[0] = 0;
+    f[1] = 1;
+
+    for (i = 2; i <= n; i++)
+    {
+        f[i] = f[i-1] + f[i-2];
+    }
+
+    return f[n];
 }
 
-double_int double_fib(unsigned int num)
+double_int fibDouble(unsigned int n)
 {
-    double_int f[num+2];
-
+    double_int f[n+2];
     f[0] = make_double_int(0);
     f[1] = make_double_int(1);
 
-    for (int i = 2; i <= num; i++)
+    for (int i = 2; i <= n; i++)
     {
         f[i] = add_double_int(f[i-1], f[i-2]);
-
     }
-    return f[num];
+
+    return f[n];
 }
 
-//TODO: Remember to do the add zero function
-int double_int_demo() {
+int zero_check(double_int n) {
+    if (n.mostSignificant + n.leastSignificant == 0) {
+        return 1;
+    } else {
+        return 0;
+    }
+}
 
-    return 1;
+void double_int_demo() {
+
 }

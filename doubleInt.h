@@ -18,10 +18,11 @@ typedef struct {
 double_int make_double_int(unsigned int i);
 double_int double_int_add_to(double_int * i, double_int j);
 int make_int_from_double_int(double_int i);
+double_int double_fib(unsigned int n);
+int zero_check(double_int n);
+int fib(int n);
 double_int add_double_int(double_int i, double_int j);
-unsigned int fib(unsigned int num);
-double_int double_fib(unsigned int num);
-int double_int_demo();
+void double_int_demo();
 #if defined __cplusplus  /* read this "extern C" line _only_ when we're using C++ */
 }
 #endif
