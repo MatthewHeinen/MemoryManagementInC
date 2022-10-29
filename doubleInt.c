@@ -3,6 +3,7 @@
 //
 
 #include "doubleInt.h"
+#include "assert.h"
 #include "safe_int_just_c.h"
 #include <math.h>
 #include <malloc.h>
@@ -34,7 +35,7 @@ double_int add_double_int(double_int i, double_int j)
         if (j.leastSignificant > INT_MAX - i.leastSignificant) {
             int i_ms = 0;
             int i_ls = i.leastSignificant;
-            int j_ms = 1;
+            int j_ms = j_ms + 1;
             int j_ls = j.leastSignificant - INT_MAX;
             result.mostSignificant = i_ms + j_ms;
             result.leastSignificant = i_ls + j_ls;
@@ -43,7 +44,7 @@ double_int add_double_int(double_int i, double_int j)
             }
             return  result;
         } else if (i.leastSignificant > INT_MAX - j.leastSignificant) {
-            int i_ms = 1;
+            int i_ms = i_ms + 1;
             int i_ls = i.leastSignificant - INT_MAX;
             int j_ms = 0;
             int j_ls = j.leastSignificant;
@@ -63,16 +64,16 @@ double_int add_double_int(double_int i, double_int j)
 }
 
 double_int double_int_add_to(double_int * i, double_int j) {
-    if ((i->mostSignificant  > 0 && j.mostSignificant > 0 )) {
+    if ((i->mostSignificant  > INT_MAX - 1 && j.mostSignificant > INT_MAX - 1 )) {
         fprintf(stderr, "Oops, failed to add. Overflow!");
         exit(88);
-    } else if ((i->mostSignificant > 0 || j.mostSignificant > 0) && (i->leastSignificant > INT_MAX - j.leastSignificant)) {
+    } else if ((i->mostSignificant > INT_MAX - 1 || j.mostSignificant > INT_MAX - 1) && (i->leastSignificant > INT_MAX - j.leastSignificant)) {
         fprintf(stderr, "Oops, failed to add. Overflow!");
         exit(88);
-    } else if (((i->mostSignificant == 0) && (j.mostSignificant == 1)) && (((i->leastSignificant > INT_MAX - j.leastSignificant)) || ((j.leastSignificant > INT_MAX - i->leastSignificant)))) {
+    } else if (((i->mostSignificant == 0) && (j.mostSignificant == INT_MAX)) && (((i->leastSignificant > INT_MAX - j.leastSignificant)) || ((j.leastSignificant > INT_MAX - i->leastSignificant)))) {
         fprintf(stderr, "Oops, failed to add. Overflow!");
         exit(88);
-    } else if (((i->mostSignificant == 1) && (j.mostSignificant == 0)) && (((i->leastSignificant > INT_MAX - j.leastSignificant)) || ((j.leastSignificant > INT_MAX - i->leastSignificant)))) {
+    } else if (((i->mostSignificant == INT_MAX) && (j.mostSignificant == 0)) && (((i->leastSignificant > INT_MAX - j.leastSignificant)) || ((j.leastSignificant > INT_MAX - i->leastSignificant)))) {
         fprintf(stderr, "Oops, failed to add. Overflow!");
         exit(88);
     } else {
@@ -84,15 +85,25 @@ double_int double_int_add_to(double_int * i, double_int j) {
 unsigned int fib(unsigned int num)
 {
 
-
 }
 
 double_int double_fib(unsigned int num)
 {
+    double_int f[num+2];
 
+    f[0] = make_double_int(0);
+    f[1] = make_double_int(1);
+
+    for (int i = 2; i <= num; i++)
+    {
+        f[i] = add_double_int(f[i-1], f[i-2]);
+
+    }
+    return f[num];
 }
 
 //TODO: Remember to do the add zero function
-void double_int_demo() {
+int double_int_demo() {
 
+    return 1;
 }
