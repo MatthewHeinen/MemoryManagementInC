@@ -8,6 +8,7 @@ add_executable(BigInt
 		SafeInt.cpp
 		String.cpp
 		twice_greater_v1.c
+		doubleInt.c
         )
 
 include_directories(/home/courses/include ../HaverfordCS/include)

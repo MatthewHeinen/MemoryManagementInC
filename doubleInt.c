@@ -8,6 +8,7 @@
 #include <malloc.h>
 #include <string.h>
 #include <stdlib.h>
+#include "assert.h"
 
 double_int make_double_int(unsigned int i)
 {
@@ -43,37 +44,69 @@ int make_int_from_double_int(double_int i)
 double_int add_double_int(double_int i, double_int j)
 {
     double_int result;
-    if (i.leastSignificant > INT_MAX - j.leastSignificant || j.leastSignificant > INT_MAX - i.leastSignificant) {
-        if (j.leastSignificant > INT_MAX - i.leastSignificant) {
-            int i_ms = 0;
-            int i_ls = i.leastSignificant;
-            int j_ms = j_ms + 1;
-            int j_ls = j.leastSignificant - INT_MAX;
+    unsigned int i_ms;
+    unsigned int i_ls;
+    unsigned int j_ms;
+    unsigned int j_ls;
+    if ((i.leastSignificant > INT_MAX - j.leastSignificant || j.leastSignificant > INT_MAX - i.leastSignificant) || (i.mostSignificant > 0 || j.mostSignificant > 0)) {
+        if ((j.leastSignificant > INT_MAX - i.leastSignificant) && ((i.mostSignificant > 0 && j.mostSignificant > 0) == 0)) {
+            if (i.leastSignificant == INT_MAX) {
+                i_ms = 1;
+            } else {
+                i_ms++;
+            }
+            i_ls = i.leastSignificant - INT_MAX;
+            j_ms = 0;
+            j_ls = j.leastSignificant;
             result.mostSignificant = i_ms + j_ms;
             result.leastSignificant = i_ls + j_ls;
             if (i_ls + j_ls == INT_MAX) {
                 result.leastSignificant = i_ls + j_ls - 1;
             }
             return  result;
-        } else if (i.leastSignificant > INT_MAX - j.leastSignificant) {
-            int i_ms = i_ms + 1;
-            int i_ls = i.leastSignificant - INT_MAX;
-            int j_ms = 0;
-            int j_ls = j.leastSignificant;
+        } else if ((i.leastSignificant > INT_MAX - j.leastSignificant) && ((i.mostSignificant > 0 && j.mostSignificant > 0) == 0)) {
+            i_ms = 0;
+            i_ls = i.leastSignificant;
+            if (j.leastSignificant == INT_MAX) {
+                j_ms = 1;
+            } else {
+                j_ms++;
+            }
+            j_ls = j.leastSignificant - INT_MAX;
             result.mostSignificant = i_ms + j_ms;
             result.leastSignificant = i_ls + j_ls;
             if (i_ls + j_ls == INT_MAX) {
                 result.leastSignificant = i_ls + j_ls - 1;
             }
             return  result;
+        } else if (i.mostSignificant > 0 && j.mostSignificant > 0){
+            result.mostSignificant = i.mostSignificant + j.mostSignificant;
+            if (((j.leastSignificant > INT_MAX - i.leastSignificant) == 0) && ((i.leastSignificant > INT_MAX - j.leastSignificant) == 0)){
+                result.leastSignificant = i.leastSignificant + j.leastSignificant;
+            } else if (j.leastSignificant > INT_MAX - i.leastSignificant) {
+                result.mostSignificant = i.mostSignificant + j.mostSignificant + 1;
+                int temp = j.leastSignificant - INT_MAX;
+                int temp2 = i.leastSignificant;
+                result.leastSignificant = temp + temp2;
+            } else if (i.leastSignificant > INT_MAX - j.leastSignificant) {
+                result.mostSignificant = i.mostSignificant + j.mostSignificant + 1;
+                int temp = i.leastSignificant - INT_MAX;
+                int temp2 = j.leastSignificant;
+                result.leastSignificant = temp + temp2;
+            } else if (i.leastSignificant + j.leastSignificant == INT_MAX ) {
+                result.mostSignificant++;
+                result.leastSignificant = 0;
+            }
+            return result;
         }
     } else {
-        int res = i.leastSignificant + j.leastSignificant;
+        unsigned int res = i.leastSignificant + j.leastSignificant;
         double_int no_overflow_result = make_double_int(res);
         return no_overflow_result;
     }
-    return result;
+
 }
+
 
 double_int double_int_add_to(double_int * i, double_int j) {
     if ((i->mostSignificant  > INT_MAX - 1 && j.mostSignificant > INT_MAX - 1 )) {
@@ -124,14 +157,26 @@ double_int fibDouble(unsigned int n)
     return f[n];
 }
 
-int zero_check(double_int n) {
-    if (n.mostSignificant + n.leastSignificant == 0) {
+int compare_double_int(double_int i, double_int j) {
+    if (i.mostSignificant == j.mostSignificant && i.leastSignificant == j.leastSignificant) {
+        printf("hi");
         return 1;
     } else {
+        printf("bye");
         return 0;
     }
 }
 
-void double_int_demo() {
-
+int double_int_demo() {
+    double_int test;
+    double_int fib1;
+    double_int test1 = add_double_int(make_double_int(INT_MAX), make_double_int(214));
+    test.mostSignificant = 1;
+    test.leastSignificant = 214;
+    assert(compare_double_int(test1, test) == 1);
+    fib1.mostSignificant = 3511139102;
+    fib1.leastSignificant = 859081435;
+    assert(compare_double_int(fibDouble(92), fib1));
+    printf("Passed all tests");
+    return 1;
 }
