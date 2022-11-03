@@ -9,6 +9,6 @@ add_executable(BigInt
 		String.cpp
 		twice_greater_v1.c
 		doubleInt.c
-        )
+		BigInt.cpp BigInt.h)
 
 include_directories(/home/courses/include ../HaverfordCS/include)
