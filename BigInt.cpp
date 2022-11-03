@@ -26,6 +26,7 @@ BigInt * extend(BigInt * first, unsigned int first_size, BigInt * second, unsign
     for (int j = 0; j < second_size; j++) {
         arr[j + first_size] = second[j];
     }
+    return arr;
 }
 
 BigInt * create(BigInt value, unsigned int count) {
