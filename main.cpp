@@ -15,22 +15,26 @@
 #include "twice_greaters.h"
 #include "String.h"
 #include "doubleInt.h"
+#include "BigInt.h"
 
 int main() {
     std::cout << "Hello, world" << std::endl;
-//    twice_greater_demo_v1();
 
-    double_int n = make_double_int(INT_MAX);
-    double_int m = make_double_int(214);
-    double_int z = add_double_int(n, m);
-    // double_int_add_to(&n,m);
-    double_int work = fibDouble(92);
-    double_int_demo();
 
-    // need to add calls to test suite and/or user interface to work with the code here
-    // String_Demo();
-    // Both of the following run until end-of-input, so just use one or the other
-    //safe_int_demo();  /// this runs until crash, so we'll not make it to the next line :-(
-    std::cout << "all done" << std::endl;
+    BigInt z = BigInt();
+    z.bigInt = new unsigned int[3];
+    z.bigInt[0] = UINT_MAX; // UINT_MAX ones = UINT_MAX*UINT_MAX
+    z.bigInt[1] = 2;
+    z.size = 2;
+    BigInt c = BigInt();
+    c.bigInt[0] = 2;
+    c.bigInt[1] = 20;
+    c.size = 2;
+    // [1, 23]
+    BigInt u = add_to_nums(&c, &z);
+    // [Max, 5]
+    //[max]
+//    BigInt n = fibBigInt(47);
+//    std::cout << "\nall done" << std::endl;
 }
 
