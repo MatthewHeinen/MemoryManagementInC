@@ -8,13 +8,20 @@
 using namespace std;
 
 BigInt::BigInt(unsigned int i) {
-    this->theValue = i;    // We _strongly_ recommend you put "this->" for all initializations in constructor
+    unsigned int *input = new unsigned int[1];
+    input[0] = i;
+    this-> bigInt = input;
+    this->size = 1;
 
 }
 
 BigInt::BigInt()
 {
-    // this->theValue = -666;
+    unsigned int *input = new unsigned int[1];
+    input[0] = 0;
+    this-> bigInt = input;
+    this->size = 1;
+
 }
 
 BigInt * extend(BigInt * first, unsigned int first_size, BigInt * second, unsigned int second_size) {
@@ -37,9 +44,15 @@ BigInt * create(BigInt value, unsigned int count) {
     return arr;
 }
 
+int find_bigger_big_int(BigInt *i, BigInt*j){
+
+}
+
 BigInt add_big_int(BigInt i, BigInt j) {
 
 }
+
+
 
 void BigInt_Demo()
 {

@@ -16,7 +16,8 @@ public:         // Unlike Java, we don't have to say "public" and "private" on e
     BigInt();
 
 private:        // Stuff below this line is private, i.e., only for methods ("member functions") and friend functions
-    BigIntBaseType theValue;
+    BigIntBaseType *bigInt;
+    BigIntBaseType size;
 
 };
 
