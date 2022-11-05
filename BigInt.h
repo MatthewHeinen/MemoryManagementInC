@@ -27,7 +27,7 @@ public:         // Unlike Java, we don't have to say "public" and "private" on e
 private:
 
 };
-
+void print_big_int(BigInt * i);
 BigInt fibBigInt(unsigned int n);
 BigInt add_to_nums(BigInt *i, BigInt *j);
 BigInt fix(BigInt first, BigInt carry);

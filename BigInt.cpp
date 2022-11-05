@@ -2,13 +2,7 @@
 // Created by mheinen on 11/2/22.
 //
 
-#include <cstdlib>
-#include "BigInt.h"
-
-using namespace std;
-
-#include <cmath>
-#include <iostream>
+#include <math.h>
 #include "BigInt.h"
 
 BigInt::BigInt(unsigned int i) {
@@ -24,11 +18,6 @@ BigInt::BigInt()
     input[0] = 0;
     this->bigInt = input;    // We _strongly_ recommend you put "this->" for all initializations in constructor
     this->size = 1;
-}
-
-void BigInt_Demo()
-{
-
 }
 
 BigInt * extend(BigInt * first, unsigned int first_size, BigInt * second, unsigned int second_size) {
@@ -48,7 +37,7 @@ BigInt fix(BigInt first, BigInt carry) {
     unsigned int *temp = new unsigned int[first.size + 1];
     result.bigInt = temp;
     result.size = first.size + 1;
-
+//    free(first);
     for (int i = 0; i < first.size; i++) {
         result.bigInt[i] = first.bigInt[i];
     }
@@ -80,12 +69,6 @@ BigInt fibBigInt(unsigned int n) {
     for (unsigned int i = 2; i <= n; i++)
     {
         fib[i] = add_to_nums(&fib[i-1], &fib[i-2]);
-        if (i == 46) {
-            std::cout<< fib[i].bigInt[0] << std::endl;
-        }
-        if (i == 47) {
-            std::cout<< fib[i].bigInt[0] << std::endl;
-        }
     }
 
     return fib[n];
@@ -93,82 +76,62 @@ BigInt fibBigInt(unsigned int n) {
 
 BigInt add_to_nums(BigInt *i, BigInt *j) {
     unsigned int range = 0;
-    unsigned int length = 0;
+    BigInt *bigger;
+    BigInt *smaller;
     if (bigger_big_int(i, j) == 1) {
-        range = j->size;
-    } else if (bigger_big_int(i, j) == 0) {
+        bigger = i;
+        smaller = j;
         range = i->size;
+    } else if (bigger_big_int(i, j) == 0) {
+        smaller = i;
+        bigger = j;
+        range = j->size;
     } else {
+        smaller = i;
+        bigger = j;
         range = i->size;
     }
 
-    BigInt extended = BigInt();
-    extended.bigInt = new unsigned int[range + 1];
-    extended.size = range;
     unsigned int carry = 0;
-    BigInt *res;
-    BigInt curr;
-
-    for (unsigned int index = 0; index < range; index++) {
-        if (((i->bigInt[index] > UINT_MAX - j->bigInt[index]) == 0) && (j->bigInt[index] > UINT_MAX - i->bigInt[index]) == 0) {
-            if (carry > 0 && carry < UINT_MAX) {
-                extended.bigInt[index] = i->bigInt[index] + j->bigInt[index] + carry;
-                carry = 0;
+    BigInt extended = BigInt();
+    extended.bigInt = new unsigned int[range];
+    extended.size = range;
+    for (int index = 0; index < range; index++) {
+        if (index > smaller->size - 1) {
+            if (bigger->bigInt[index] > UINT_MAX - carry) {
+                extended.bigInt[index] = carry - (UINT_MAX - bigger->bigInt[index]);
+                carry = 1;
             } else {
-                extended.bigInt[index] = i->bigInt[index] + j->bigInt[index];
+                extended.bigInt[index] = bigger->bigInt[index]  + carry;
+                carry = 0;
             }
-        } else if ((i->bigInt[index] > UINT_MAX - j->bigInt[index]) || (j->bigInt[index] > UINT_MAX - i->bigInt[index])) {
-            if (carry > 0 && (i->bigInt[index] > UINT_MAX - j->bigInt[index])) {
-                extended.bigInt[index] = (UINT_MAX) - (UINT_MAX - i->bigInt[index]);
-                carry += i->bigInt[index] - UINT_MAX + j->bigInt[index] + carry -1;
-            } else if (carry > 0 && (j->bigInt[index] > UINT_MAX - i->bigInt[index]))  {
-                extended.bigInt[index] = (UINT_MAX) - (UINT_MAX - j->bigInt[index]);
-                carry += j->bigInt[index] - UINT_MAX + i->bigInt[index]-1;
-            } else if (i->bigInt[index] > UINT_MAX - j->bigInt[index]) {
-                extended.bigInt[index] = (UINT_MAX) - (UINT_MAX - i->bigInt[index]);
-                carry += i->bigInt[index] - UINT_MAX + j->bigInt[index]-1;
-            } else if (j->bigInt[index] > UINT_MAX - i->bigInt[index]) {
-                extended.bigInt[index] = (UINT_MAX) - (UINT_MAX - j->bigInt[index]);
-                carry += j->bigInt[index] - UINT_MAX + i->bigInt[index]-1;
+        } else {
+            if (bigger->bigInt[index] > UINT_MAX - smaller->bigInt[index]) {
+                extended.bigInt[index] = smaller->bigInt[index] - (UINT_MAX - bigger->bigInt[index]) + carry;
+                carry = 1;
+            } else {
+                extended.bigInt[index] = bigger->bigInt[index] + smaller->bigInt[index] + carry;
+                carry = 0;
             }
         }
     }
 
-    /** 1 = UINT_MAX
-     * i = [1, 1, 1, 1]
-     * j = [1, 1]
-     * res = [0, 0]
-     * carry = 1
-     * int i;
-     * for (i = 0; i < length of shorter; i++)
-     *    res = [0 , 0]
-     * if (carry != 0 and i < length of longer)
-     * for loop to add
-     *    res = [0, 0, 0, 0]
-     * extend should add the carry to the end
-     *   res = [0, 0, 0, 0, 1]
-     *  first big int = [999]
-     * second big int = [10]
-     * [1, 9]
-     * 1009
-     *
-     * 4294967295
-     * 10
-     * [1, 9]
-     * */
-
-    //  std::cout<< carry << std::endl;
     if ((carry != 0)){
+        BigInt curr;
         curr = BigInt(carry);
-        BigInt temp_res = BigInt();
         extended = fix(extended, curr);
     }
 
-   for (int i = 0 ; i < extended.size; i++) {
-       std::cout<< extended.bigInt[i] << std::endl;
-       //std::cout<< extended.size << std::endl;
-   }
-
-
     return extended;
+}
+
+void print_big_int(BigInt * j) {
+    for (int i = 0; i < j->size; i++) {
+        std::cout << j->bigInt[i] << std::endl;
+    }
+}
+
+void BigInt_Demo()
+{
+
 }
