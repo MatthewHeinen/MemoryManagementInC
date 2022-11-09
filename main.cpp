@@ -19,22 +19,24 @@
 
 
 int main() {
-    std::cout << "Hello, world" << std::endl;
+//    std::cout << "Hello, world" << std::endl;
+//
+//
+//    BigInt z = BigInt();
+//    z.bigInt = new unsigned int[2];
+//    z.bigInt[0] = 4294967295;
+//    z.bigInt[1] = UINT_MAX-1;
+//    z.size = 2;
+//    BigInt c = BigInt();
+//    c.bigInt = new unsigned int[2];
+//    c.bigInt[0] = 4294967295;
+//    c.bigInt[1] = 512559681;
+//    c.size = 2;
 
+//    BigInt n = fibBigInt(1);
+//    print_big_int(&n);
 
-    BigInt z = BigInt();
-    z.bigInt = new unsigned int[2];
-    z.bigInt[0] = 4294967295;
-    z.bigInt[1] = UINT_MAX-1;
-    z.size = 2;
-    BigInt c = BigInt();
-    c.bigInt = new unsigned int[2];
-    c.bigInt[0] = 4294967295;
-    c.bigInt[1] = 512559681;
-    c.size = 2;
-
-    BigInt n = fibBigInt(700000);
-    print_big_int(&n);
+BigInt_Demo();
 
 }
 
