@@ -17,11 +17,7 @@
 #include "doubleInt.h"
 #include "BigInt.h"
 
-/**
- * This is the main for the project. I did it in C programming language.
- * Partner: Adiel
- * Also worked with: Matt Heinen
- * */
+
 int main() {
     std::cout << "Hello, world" << std::endl;
 
@@ -36,9 +32,8 @@ int main() {
     c.bigInt[0] = 4294967295;
     c.bigInt[1] = 512559681;
     c.size = 2;
-    //[carry, ]
 
-    BigInt n = fibBigInt(100000);
+    BigInt n = fibBigInt(700000);
     print_big_int(&n);
 
 }

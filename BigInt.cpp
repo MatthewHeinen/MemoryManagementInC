@@ -25,7 +25,7 @@ BigInt * extend(BigInt * first, unsigned int first_size, BigInt * second, unsign
     for(int i = 0; i < first_size; i++) {
         arr[i] = first[i];
     }
-    //free(first);
+    free(first);
     for (int j = 0; j < second_size; j++) {
         arr[j + first_size] = second[j];
     }
@@ -37,10 +37,12 @@ BigInt fix(BigInt first, BigInt carry) {
     unsigned int *temp = new unsigned int[first.size + 1];
     result.bigInt = temp;
     result.size = first.size + 1;
-//    free(first);
+
     for (int i = 0; i < first.size; i++) {
         result.bigInt[i] = first.bigInt[i];
     }
+    //free(first.bigInt);
+    delete [] first.bigInt;
     result.bigInt[first.size] = carry.bigInt[0];
     return result;
 }
@@ -57,7 +59,7 @@ int bigger_big_int(BigInt *i, BigInt*j) {
 
 
 BigInt fibBigInt(unsigned int n) {
-    BigInt *fib = new BigInt[2];
+    BigInt *fib = new BigInt[n+1];
     fib[0] = BigInt(0);
     fib[1] = BigInt(1);
 
