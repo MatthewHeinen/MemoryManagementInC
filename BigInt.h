@@ -1,7 +1,6 @@
 //
 // Created by mheinen on 11/2/22.
 //
-
 #ifndef BIGINT_BIGINT_H
 #define BIGINT_BIGINT_H
 
@@ -23,6 +22,7 @@ public:
     friend std::istream &operator>>(std::istream &any_istream, BigInt &inputMe);
     BigInt &operator+=(const BigInt i);
     friend int big_int_to_int(BigInt i);
+    friend void print_big_int(BigInt * i);
     friend BigInt fibBigInt(unsigned int n);
     friend bool isZero(BigInt i);
     friend int bigger_big_int(BigInt i, BigInt j);
@@ -31,7 +31,6 @@ public:
 private:
 
     friend BigInt extend(BigInt *first, int carry);
-    friend void print_big_int(BigInt * i);
 };
 
 int BigInt_Demo();

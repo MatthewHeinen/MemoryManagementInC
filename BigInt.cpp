@@ -12,7 +12,7 @@
 BigInt::BigInt(unsigned int i) {
     unsigned int *input = new unsigned int[1];
     input[0] = i;
-    this->bigInt = input;    // We _strongly_ recommend you put "this->" for all initializations in constructor
+    this->bigInt = input;
     this->size = 1;
 }
 
@@ -22,9 +22,7 @@ BigInt::BigInt(unsigned int i) {
  * */
 BigInt::BigInt()
 {
-    unsigned int *input = new unsigned int[1];
-    input[0] = 0;
-    this->bigInt = input;    // We _strongly_ recommend you put "this->" for all initializations in constructor
+    this->bigInt = nullptr;    // We _strongly_ recommend you put "this->" for all initializations in constructor
     this->size = 1;
 }
 
@@ -62,20 +60,20 @@ BigInt fibBigInt(unsigned int n) {
     BigInt result = BigInt();
 
     if (n == 0) {
+        delete[] second.bigInt;
         return first;
     } else if (n == 1) {
+        delete[] first.bigInt;
         return second;
     }
 
     for (unsigned int i = 2; i <= n; i++) {
         result = first + second;
-        BigInt temp = second;
+        delete[] first.bigInt;
+        first = second;
         second = result;
-        delete [] first.bigInt;
-        first = temp;
-
     }
-
+    delete[] first.bigInt;
     return result;
 }
 
@@ -160,6 +158,7 @@ void print_big_int(BigInt * j) {
     for (int i = 0; i < j->size; i++) {
         std::cout << j->bigInt[i] << std::endl;
     }
+    delete[] j->bigInt;
 }
 
 std::ostream &operator<<(std::ostream &any_ostream, const BigInt &printMe)
@@ -189,13 +188,8 @@ int big_int_to_int(BigInt i) {
 
 int BigInt_Demo()
 {
-    BigInt n = fibBigInt(1);
-    //BigInt m = fibBigInt(1);
-    //n += m;
-    // bool curr = n == m;
-    // std::cout << curr << std::endl;
+    BigInt n = fibBigInt(1000000);
     print_big_int(&n);
-    delete[] n.bigInt;
     printf("Passed all tests!");
     return 1;
 }
