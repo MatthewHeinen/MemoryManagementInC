@@ -14,6 +14,7 @@ class BigInt {
 public:
     BigIntBaseType *bigInt;
     BigIntBaseType size;
+    ~BigInt();
     BigInt(unsigned int i);
     BigInt();
     friend BigInt operator+(const BigInt i, const BigInt j);

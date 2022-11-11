@@ -38,7 +38,7 @@ BigInt extend(BigInt *first, int carry) {
     for (int i = 0; i < first->size; i++) {
         result.bigInt[i] = first->bigInt[i];
     }
-    delete[] first->bigInt;
+    //delete[] first->bigInt;
     result.bigInt[first->size] = carry;
     return result;
 }
@@ -60,20 +60,16 @@ BigInt fibBigInt(unsigned int n) {
     BigInt result = BigInt();
 
     if (n == 0) {
-        delete[] second.bigInt;
         return first;
     } else if (n == 1) {
-        delete[] first.bigInt;
         return second;
     }
 
     for (unsigned int i = 2; i <= n; i++) {
         result = first + second;
-        delete[] first.bigInt;
         first = second;
         second = result;
     }
-    delete[] first.bigInt;
     return result;
 }
 
@@ -158,7 +154,6 @@ void print_big_int(BigInt * j) {
     for (int i = 0; i < j->size; i++) {
         std::cout << j->bigInt[i] << std::endl;
     }
-    delete[] j->bigInt;
 }
 
 std::ostream &operator<<(std::ostream &any_ostream, const BigInt &printMe)
@@ -186,9 +181,17 @@ int big_int_to_int(BigInt i) {
     }
 }
 
+BigInt::~BigInt() {
+    if (this->bigInt != nullptr) {
+        delete[] this->bigInt;  // OK because only one pointer to any letters on the heap
+    } else {
+        printf("Its already null");
+    }
+}
+
 int BigInt_Demo()
 {
-    BigInt n = fibBigInt(1000000);
+    BigInt n = fibBigInt(10000);
     print_big_int(&n);
     printf("Passed all tests!");
     return 1;
