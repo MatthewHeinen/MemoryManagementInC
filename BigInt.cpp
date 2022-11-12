@@ -226,7 +226,8 @@ bool isZero(BigInt j) {
 }
 
 /**
- * This function prints each index of the big int array
+ * This function prints each index of the big int array. We print the most leat significant number at the top and then more significant going down
+ * Therefore it goes number, num*UINT_Max, num*UINT_Max^2 etc.
  * @param j is a big int
  */
 void print_big_int(BigInt * j) {
