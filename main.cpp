@@ -8,6 +8,13 @@
  * My partner was Justin Reed, collaborated with Abel Kelbessa for logic on how to do some of the functions (Not my partner)
  */
 
+/**
+ * This is also the main for BigInt. I did this in C++
+ * @author Matthew Heinen
+ * @date 10/31/2022
+ * My partner was Justin Reed, collaborated with Abel Kelbessa for logic on how to do some of the functions (Not my partner)
+ */
+
 #include <iostream>  // access to I.O. Streams library, for std::cout and std::endl
 #include <cstring>
 //#include "SafeInt.h"
@@ -36,7 +43,7 @@ int main() {
 //    BigInt n = fibBigInt(1);
 //    print_big_int(&n);
 
-BigInt_Demo();
+    BigInt_Demo();
 
 }
 

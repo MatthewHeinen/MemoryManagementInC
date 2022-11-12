@@ -11,13 +11,12 @@ typedef unsigned int BigIntBaseType;
 #define BIG_INT_MIN INT_MIN
 
 class BigInt {
-public:
+public: //these are all of our functions that are public for big int
 
     explicit BigInt(unsigned int i);
     explicit BigInt();
     BigInt(const BigInt &a);
     ~BigInt();
-    friend std::string BigInt_to_String(BigInt *a);
     BigInt& operator=(const BigInt &a);
     friend BigInt operator+(const BigInt &i, const BigInt &j);
     friend bool operator==(const BigInt i, const BigInt j);
@@ -32,13 +31,14 @@ public:
     //explicit operator int() const;
 
 
-private:
+private: //our private functions for big int
 
     BigIntBaseType *bigInt;
     BigIntBaseType size;
     //friend BigInt extend(BigInt *first, int carry);
 };
 
+//Other functions that I used
 int BigInt_Demo();
 BigInt fibBigInt(unsigned int n);
 
