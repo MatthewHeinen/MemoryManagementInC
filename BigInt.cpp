@@ -12,9 +12,8 @@
  * @param: i - is an unsigned int that we are putting an integer int
  * */
 BigInt::BigInt(unsigned int i) {
-    unsigned int *input = new unsigned int[1];
-    input[0] = i;
-    this->bigInt = input;
+    this->bigInt = new unsigned int[1];
+    this->bigInt[0] = i;
     this->size = 1;
 }
 
@@ -25,7 +24,7 @@ BigInt::BigInt(unsigned int i) {
 BigInt::BigInt()
 {
     this->bigInt = nullptr;    // We _strongly_ recommend you put "this->" for all initializations in constructor
-    this->size = 1;
+    this->size = 0;
 }
 
 /**
@@ -200,13 +199,13 @@ int big_int_to_int(BigInt i) {
 int BigInt_Demo()
 {
     BigInt one = BigInt(1);
-    BigInt one_more = one;
+    BigInt one_more = BigInt(one);
     std::cout << one << " and " << one_more << endl;
+
 
     /**
      *  == operator tests
      * */
-    fibBigInt(5);
     hccs_assert((fibBigInt(10) == fibBigInt(11)) == 0);
     hccs_assert((fibBigInt(100) == fibBigInt(99)) == 0);
     hccs_assert((fibBigInt(29) == fibBigInt(29)) == 1);
@@ -254,7 +253,7 @@ int BigInt_Demo()
     BigInt test16 = BigInt(75025);
     hccs_assert((test15 == test16) == 0);
 
-    BigInt n = fibBigInt(3);
+    BigInt n = fibBigInt(10000);
     print_big_int(&n);
     printf("Passed all tests!");
     return 1;

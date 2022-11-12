@@ -13,8 +13,8 @@ typedef unsigned int BigIntBaseType;
 class BigInt {
 public:
 
-    BigInt(unsigned int i);
-    BigInt();
+    explicit BigInt(unsigned int i);
+    explicit BigInt();
     friend BigInt operator+(const BigInt i, const BigInt j);
     friend bool operator==(const BigInt i, const BigInt j);
     friend std::ostream &operator<<(std::ostream &any_ostream, const BigInt &printMe);
@@ -27,10 +27,12 @@ public:
     friend int bigger_big_int(BigInt i, BigInt j);
     explicit operator int() const;
 
+
 private:
 
     BigIntBaseType *bigInt;
     BigIntBaseType size;
+    void delete_big();
     friend BigInt extend(BigInt *first, int carry);
 };
 
