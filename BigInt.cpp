@@ -64,17 +64,15 @@ std::string BigInt_to_String(BigInt *a){
  * Function appends a carry to the end of an array
  * @param: first is the BigInt that we want to append a carry on to
  * */
-BigInt extend(BigInt *first, int carry) {
-    BigInt result;
-    unsigned int *temp = new unsigned int[first->size + 1];
-    result.bigInt = temp;
-    result.size = first->size + 1;
-    for (int i = 0; i < first->size; i++) {
-        result.bigInt[i] = first->bigInt[i];
+void BigInt::extend(){
+    unsigned int* temp = new unsigned int[this->size + 1];
+    for( int i = 0; i < this->size; i++){
+        temp[i] = this->bigInt[i];
     }
-    delete[] first->bigInt;
-    result.bigInt[first->size] = carry;
-    return result;
+    temp[this->size] = 1;
+    this->size += 1;
+    delete [] (*this).bigInt;
+    this->bigInt = temp;
 }
 
 int bigger_big_int(BigInt i, BigInt j) {
@@ -112,7 +110,7 @@ BigInt fibBigInt(unsigned int n) {
 }
 
 
-BigInt operator+(const BigInt i, const BigInt j) {
+BigInt operator+(const BigInt &i, const BigInt &j) {
     unsigned int range = 0;
     BigInt bigger;
     BigInt smaller;
@@ -155,7 +153,7 @@ BigInt operator+(const BigInt i, const BigInt j) {
     }
 
     if ((carry != 0)){
-        extended = extend(&extended, carry);
+        extended.extend();
     }
 
     return extended;
@@ -180,7 +178,7 @@ bool operator==(const BigInt i, const BigInt j) {
     }
 }
 
-BigInt &BigInt::operator+=(const BigInt i) {
+BigInt &BigInt::operator+=(const BigInt &i) {
     BigInt result = *this + i;
 //    delete [] i.bigInt;
 //    delete[] this->bigInt;
@@ -242,53 +240,53 @@ int BigInt_Demo()
      * */
     hccs_assert((fibBigInt(10) == fibBigInt(11)) == 0);
     hccs_assert((fibBigInt(100) == fibBigInt(99)) == 0);
-//    hccs_assert((fibBigInt(29) == fibBigInt(29)) == 1);
-//    hccs_assert((fibBigInt(40) == fibBigInt(40)) == 1);
+    hccs_assert((fibBigInt(29) == fibBigInt(29)) == 1);
+    hccs_assert((fibBigInt(40) == fibBigInt(40)) == 1);
 
     /**
      *     += operator tests
      * */
-//    BigInt test1 = fibBigInt(10);
-//    BigInt test2 = fibBigInt(11);
-//    test1 += test2;
-//    hccs_assert((fibBigInt(12) == test1) == 1);
-//
-//    BigInt test3 = fibBigInt(40);
-//    BigInt test4 = fibBigInt(41);
-//    test3 += test4;
-//    hccs_assert((fibBigInt(42) == test3) == 1);
-//
-//    BigInt test5 = fibBigInt(150);
-//    BigInt test6 = fibBigInt(151);
-//    test5 += test6;
-//    hccs_assert((fibBigInt(152) == test5) == 1);
-//
-//    BigInt test7 = fibBigInt(200);
-//    BigInt test8 = fibBigInt(100);
-//    test7 += test8;
-//    hccs_assert((fibBigInt(300) == test7) == 0);
+    BigInt test1 = fibBigInt(10);
+    BigInt test2 = fibBigInt(11);
+    test1 += test2;
+    hccs_assert((fibBigInt(12) == test1) == 1);
+
+    BigInt test3 = fibBigInt(40);
+    BigInt test4 = fibBigInt(41);
+    test3 += test4;
+    hccs_assert((fibBigInt(42) == test3) == 1);
+
+    BigInt test5 = fibBigInt(150);
+    BigInt test6 = fibBigInt(151);
+    test5 += test6;
+    hccs_assert((fibBigInt(152) == test5) == 1);
+
+    BigInt test7 = fibBigInt(200);
+    BigInt test8 = fibBigInt(100);
+    test7 += test8;
+    hccs_assert((fibBigInt(300) == test7) == 0);
 
     /**
      * fib tests
      * */
-//    BigInt test9 = fibBigInt(40);
-//    BigInt test10 = BigInt(102334155);
-//    hccs_assert((test9 == test10) == 1);
-//
-//    BigInt test11 = fibBigInt(47);
-//    BigInt test12 = BigInt(2971215073);
-//    hccs_assert((test11 == test12) == 1);
-//
-//    BigInt test13 = fibBigInt(30);
-//    BigInt test14 = BigInt(832040);
-//    hccs_assert((test13 == test14) == 1);
-//
-//    BigInt test15 = fibBigInt(30);
-//    BigInt test16 = BigInt(75025);
-//    hccs_assert((test15 == test16) == 0);
-//
-//    BigInt n = fibBigInt(10);
-//    print_big_int(&n);
+    BigInt test9 = fibBigInt(40);
+    BigInt test10 = BigInt(102334155);
+    hccs_assert((test9 == test10) == 1);
+
+    BigInt test11 = fibBigInt(47);
+    BigInt test12 = BigInt(2971215073);
+    hccs_assert((test11 == test12) == 1);
+
+    BigInt test13 = fibBigInt(30);
+    BigInt test14 = BigInt(832040);
+    hccs_assert((test13 == test14) == 1);
+
+    BigInt test15 = fibBigInt(30);
+    BigInt test16 = BigInt(75025);
+    hccs_assert((test15 == test16) == 0);
+
+    BigInt n = fibBigInt(10);
+    print_big_int(&n);
     printf("Passed all tests!");
     return 1;
 }

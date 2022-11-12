@@ -19,23 +19,24 @@ public:
     ~BigInt();
     friend std::string BigInt_to_String(BigInt *a);
     BigInt& operator=(const BigInt &a);
-    friend BigInt operator+(const BigInt i, const BigInt j);
+    friend BigInt operator+(const BigInt &i, const BigInt &j);
     friend bool operator==(const BigInt i, const BigInt j);
     friend std::ostream &operator<<(std::ostream &any_ostream, const BigInt &printMe);
     friend std::istream &operator>>(std::istream &any_istream, BigInt &inputMe);
-    BigInt &operator+=(const BigInt i);
+    BigInt &operator+=(const BigInt &i);
     friend unsigned int big_int_to_int(BigInt i);
     friend void print_big_int(BigInt * i);
     friend bool isZero(BigInt i);
     friend int bigger_big_int(BigInt i, BigInt j);
-    explicit operator int() const;
+    void extend();
+    //explicit operator int() const;
 
 
 private:
 
     BigIntBaseType *bigInt;
     BigIntBaseType size;
-    friend BigInt extend(BigInt *first, int carry);
+    //friend BigInt extend(BigInt *first, int carry);
 };
 
 int BigInt_Demo();
