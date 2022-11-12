@@ -12,9 +12,7 @@ typedef unsigned int BigIntBaseType;
 
 class BigInt {
 public:
-    BigIntBaseType *bigInt;
-    BigIntBaseType size;
-    ~BigInt();
+
     BigInt(unsigned int i);
     BigInt();
     friend BigInt operator+(const BigInt i, const BigInt j);
@@ -31,6 +29,8 @@ public:
 
 private:
 
+    BigIntBaseType *bigInt;
+    BigIntBaseType size;
     friend BigInt extend(BigInt *first, int carry);
 };
 
